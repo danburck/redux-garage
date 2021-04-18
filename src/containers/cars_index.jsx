@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import Car from '../components/car';
-import fetchCars from '../actions/index';
+import { fetchCars } from '../actions/index';
 
 class CarsIndex extends Component {
   componentWillMount() {
