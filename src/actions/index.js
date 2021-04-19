@@ -2,6 +2,7 @@
 export const FETCH_CARS = 'FETCH_CARS';
 export const FETCH_CAR = 'FETCH_CAR';
 export const CREATE_CAR = 'CREATE_CAR';
+export const REMOVE_CAR = 'REMOVE_CAR';
 
 const BASE_URL = 'https://wagon-garage-api.herokuapp.com';
 
@@ -43,5 +44,17 @@ export function createCar(garage, car, callback) {
   return {
     type: CREATE_CAR,
     payload: request
+  };
+}
+
+export function removeCar(history, car) {
+  const endpoint = `${BASE_URL}/cars/${car.id}`;
+  fetch(endpoint, { method: 'DELETE' })
+    .then(response => response.json())
+    .then(() => history.push(""));
+
+  return {
+    type: REMOVE_CAR,
+    payload: car
   };
 }
