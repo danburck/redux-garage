@@ -1,4 +1,6 @@
 # 🚗 redux-garage
+![Screenshot](https://raw.githubusercontent.com/danburck/redux-garage/master/assets/images/app-form.png)
+
 
 Redux Garage is a single page app letting you CRUD your cars in a garage, built with redux and routers.
 
