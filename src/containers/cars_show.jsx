@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { fetchCar, removeCar } from '../actions/index';
 import Car from '../components/car';
+import Aside from '../components/aside';
+
 
 class CarsShow extends Component {
   componentDidMount() {
@@ -17,20 +20,35 @@ class CarsShow extends Component {
   }
 
   render() {
-    if (!this.props.car) {
-      return <p>Loading...</p>;
+    const car = this.props.car;
+    if (!car) {
+      return (
+        <Aside key="aside" garage={this.props.garage}>
+          <Link to="/">Back to list</Link>
+        </Aside>);
     }
 
-    const car = this.props.car;
-    return (
-      <div>
-        <Car car={car} key={car.id} />
-        <button className="delete" onClick={this.handleClick}>
-          <i className="fa fa-trash-o" aria-hidden="true"></i>
-          Delete
-        </button>
+    return [
+      <Aside key="aside" garage={this.props.garage}>
+        <Link to="/">Back to list</Link>
+      </Aside>,
+      <div className="car-container" key="car">
+        <div className="car-card">
+          <img className="car-picture" alt="car" src="/assets/images/logo_square.svg" />
+          <div className="car-details">
+            <span>{car.brand} - {car.model}</span>
+            <ul>
+              <li><strong>Owner:</strong> {car.owner}</li>
+            </ul>
+            <span className="plate">{car.plate}</span>
+          </div>
+          <button className="delete" onClick={this.handleClick}>
+            <i className="fa fa-trash-o" aria-hidden="true" />
+            Delete
+          </button>
+        </div>
       </div>
-    );
+    ];
   }
 }
 
@@ -42,7 +60,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchCar, removeCar}, dispatch);
+  return bindActionCreators({ fetchCar, removeCar }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CarsShow);

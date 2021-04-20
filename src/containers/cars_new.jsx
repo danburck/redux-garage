@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { createCar } from '../actions/index';
+
+import Aside from '../components/aside';
 
 const required = value => value ? undefined : '*Required';
 const plate = value => value && !/[A-Z0-9]/.test(value) ? 'Invalid licence plate' : undefined;
@@ -31,13 +34,18 @@ class CarsNew extends Component {
   }
 
   render() {
-    return (
-      <div>
+    return [
+      <Aside key="aside" garage={this.props.garage}>
+        <Link to="/">Back to list</Link>
+      </Aside>,
+      <div key="add" className="form-container" style={{ backgroundImage: "url('/assets/images/form.jpg')"}}>
+        <div className="overlay"></div>
         <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
           <Field
             label="Brand"
             name="brand"
             type="text"
+            placeholder="Jeep"
             component={this.renderField}
             validate={required}
           />
@@ -45,6 +53,7 @@ class CarsNew extends Component {
             label="Model"
             name="model"
             type="text"
+            placeholder="Wrangler"
             component={this.renderField}
             validate={required}
           />
@@ -53,6 +62,7 @@ class CarsNew extends Component {
             name="owner"
             type="text"
             component={this.renderField}
+            placeholder="Dan Burck"
             validate={required}
           />
           <Field
@@ -60,6 +70,7 @@ class CarsNew extends Component {
             name="plate"
             type="text"
             component={this.renderField}
+            placeholder="123456"
             validate={[required, plate]}
           />
           <button className="btn btn-primary" type="submit" disabled={this.props.pristine || this.props.submitting}>
@@ -67,7 +78,7 @@ class CarsNew extends Component {
           </button>
         </form>
       </div>
-    );
+    ];
   }
 }
 

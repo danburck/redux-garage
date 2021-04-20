@@ -34,12 +34,14 @@ const store = createStore(reducers, initialState, middlewares);
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <Switch>
-        <Route path="/" exact component={CarsIndex} />
-        <Route path="/cars/:id" exact component={CarsShow} />
-        <Route path="/new" exact component={CarsNew} />
-      </Switch>
+      <div className="view-container">
+        <Switch>
+          <Route path="/" exact component={CarsIndex} />
+          <Route path="/cars/:id" exact component={CarsShow} />
+          <Route path="/new" exact component={CarsNew} />
+        </Switch>
+      </div>
     </Router>
   </Provider>,
-  document.getElementById('root')
+  document.querySelector('.container')
 );
