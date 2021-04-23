@@ -15,7 +15,7 @@ class CarsIndex extends Component {
     if (this.props.cars.length === 0) {
       return [
         <Aside key="aside" garage={this.props.garage}>
-          <Link to="/cars/new">Add a car</Link>
+          <Link to="/new">Add a car</Link>
         </Aside>,
         <div className="no-car" key="nocar">No car yet</div>
       ];
